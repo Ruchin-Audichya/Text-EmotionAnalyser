@@ -29,8 +29,8 @@ EmotionInsight is a web application that analyzes the sentiment of user-provided
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone <https://github.com/Ruchin-Audichya/Text-EmotionAnalyser>
+  
 # EmotionInsight 🌟💬
 
 ## Overview
