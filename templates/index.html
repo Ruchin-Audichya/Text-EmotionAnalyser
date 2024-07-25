@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.1.0/src/wordcloud2.min.js"></script>
+    <title>EmotionInsight</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #5e1fd3, #D83F7D);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        form {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(155, 13, 173, 0.2);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-in 0.5s forwards;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #3c26b9;
+            outline: none;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #df397b;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #c52bbd;
+            transform: scale(1.05);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.2s ease-out 0.5s forwards;
+        }
+        .result-positive {
+            color: #2ECC71;
+        }
+        .result-negative {
+            color: #E74C3C;
+        }
+        .result-neutral {
+            color: #BDC3C7;
+        }
+        .word-cloud {
+            margin-top: 20px;
+            width: 400px;
+            height: 400px;
+            background: #ffffff;
+            border-radius: 50%;
+            border: 10px solid #F39C12;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>EmotionInsight🌟💬</h1>
+    <form id="sentiment-form">
+        <input type="text" id="text-input" placeholder="Enter a sentence" required>
+        <button type="submit">Analyze</button>
+    </form>
+    <div id="sentiment-result" class="result"></div>
+    <div id="word-cloud" class="word-cloud"></div>
+
+    <script>
+        document.getElementById('sentiment-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const text = document.getElementById('text-input').value;
+            
+            try {
+                const response = await fetch('http://127.0.0.1:5000/analyze', {  // Make sure this URL matches your Flask app
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text })
+                });
+                const data = await response.json();
+                
+                const sentimentResult = document.getElementById('sentiment-result');
+                const sentiment = data.sentiment;
+                sentimentResult.textContent = `The sentiment of the input text is ${sentiment}.`;
+                sentimentResult.className = `result result-${sentiment.toLowerCase()}`;
+                
+                // Update Word Cloud (Optional, you might want to customize this further)
+                const wordList = [
+                    ['happy', 50],
+                    ['joy', 40],
+                    ['love', 60],
+                    ['sad', 30],
+                    ['angry', 25],
+                    ['hate', 20]
+                ];
+                
+                WordCloud(document.getElementById('word-cloud'), { list: wordList });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
