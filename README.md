@@ -62,14 +62,11 @@ EmotionInsight is a web application that analyzes the sentiment of user-provided
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone (https://github.com/Ruchin-Audichya/Text-EmotionAnalyser)
    
 2. Install Dependencies:
 For the backend, create a virtual environment and install required packages:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    pip install flask textblob vaderSentiment
 
 3. Start the Flask Server:
@@ -79,9 +76,12 @@ For the backend, create a virtual environment and install required packages:
 4. Open index.html in Your Browser:
    Ensure the Flask server is running, then open the index.html file in your browser to use the EmotionInsight web application.
 
- ##How to Use
+##How to Use
+
 1.Enter a sentence into the text input field.
+
 2.Click the "Analyze" button.
+
 3.View the sentiment result and word cloud generated based on the input text.
 
 ##Contact
