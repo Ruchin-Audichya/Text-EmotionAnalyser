@@ -76,7 +76,7 @@ For the backend, create a virtual environment and install required packages:
 4. Open index.html in Your Browser:
    Ensure the Flask server is running, then open the index.html file in your browser to use the EmotionInsight web application.
 
-##How to Use
+### How to Use
 
 1.Enter a sentence into the text input field.
 
@@ -84,7 +84,7 @@ For the backend, create a virtual environment and install required packages:
 
 3.View the sentiment result and word cloud generated based on the input text.
 
-##Contact
+### Contact
 For any questions or feedback, please reach out to me at: ruchinaudichya09@gmail.com 📧
 
 Happy analyzing! 😊
