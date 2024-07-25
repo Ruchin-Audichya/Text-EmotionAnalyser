@@ -78,13 +78,11 @@ For the backend, create a virtual environment and install required packages:
 
 ### How to Use
 
-1.Enter a sentence into the text input field.
-
-2.Click the "Analyze" button.
-
-3.View the sentiment result and word cloud generated based on the input text.
+- 1.Enter a sentence into the text input field.
+- 2.Click the "Analyze" button.
+- 3.View the sentiment result and word cloud generated based on the input text.
 
 ### Contact
-For any questions or feedback, please reach out to me at: ruchinaudichya09@gmail.com 📧
-
+- For any questions or feedback, please reach out to me at: ruchinaudichya09@gmail.com 📧
+---
 Happy analyzing! 😊
