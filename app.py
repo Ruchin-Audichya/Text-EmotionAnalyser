@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from textblob import TextBlob
 
@@ -9,6 +9,10 @@ def analyze_sentiment(text):
     blob = TextBlob(text)
     sentiment = blob.sentiment.polarity
     return sentiment
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
@@ -25,3 +29,4 @@ def analyze():
 
 if __name__ == '__main__':
     app.run(debug=True)
+

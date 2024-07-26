@@ -18,12 +18,14 @@
             margin: 0;
             overflow: hidden;
         }
+
         h1 {
             font-size: 2.5rem;
             color: #fff;
             margin-bottom: 20px;
             animation: fadeIn 1s ease-in;
         }
+
         form {
             background: #ffffff;
             border-radius: 8px;
@@ -35,6 +37,7 @@
             opacity: 0;
             animation: fadeIn 1s ease-in 0.5s forwards;
         }
+
         input[type="text"] {
             width: calc(100% - 22px);
             padding: 12px;
@@ -44,10 +47,12 @@
             font-size: 1rem;
             transition: border-color 0.3s ease;
         }
+
         input[type="text"]:focus {
             border-color: #3c26b9;
             outline: none;
         }
+
         button {
             padding: 12px 20px;
             font-size: 1rem;
@@ -58,10 +63,12 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
         button:hover {
             background-color: #c52bbd;
             transform: scale(1.05);
         }
+
         .result {
             margin-top: 20px;
             font-size: 1.2rem;
@@ -70,27 +77,19 @@
             transform: translateY(20px);
             animation: slideUp 0.2s ease-out 0.5s forwards;
         }
+
         .result-positive {
             color: #2ECC71;
         }
+
         .result-negative {
             color: #E74C3C;
         }
+
         .result-neutral {
             color: #BDC3C7;
         }
-        .word-cloud {
-            margin-top: 20px;
-            width: 400px;
-            height: 400px;
-            background: #ffffff;
-            border-radius: 50%;
-            border: 10px solid #F39C12;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -99,6 +98,7 @@
                 opacity: 1;
             }
         }
+
         @keyframes slideUp {
             from {
                 opacity: 0;
@@ -107,6 +107,61 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 10px rgba(243, 156, 18, 0.5), 
+                            0 0 20px rgba(243, 156, 18, 0.5), 
+                            0 0 30px rgba(243, 156, 18, 0.5), 
+                            0 0 40px rgba(243, 156, 18, 0.5),
+                            0 0 50px rgba(243, 156, 18, 0.5), 
+                            0 0 60px rgba(243, 156, 18, 0.5),
+                            0 0 70px rgba(243, 156, 18, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(243, 156, 18, 0.7), 
+                            0 0 40px rgba(243, 156, 18, 0.7), 
+                            0 0 60px rgba(243, 156, 18, 0.7), 
+                            0 0 80px rgba(243, 156, 18, 0.7),
+                            0 0 100px rgba(243, 156, 18, 0.7), 
+                            0 0 120px rgba(243, 156, 18, 0.7),
+                            0 0 140px rgba(243, 156, 18, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(243, 156, 18, 0.5), 
+                            0 0 20px rgba(243, 156, 18, 0.5), 
+                            0 0 30px rgba(243, 156, 18, 0.5), 
+                            0 0 40px rgba(243, 156, 18, 0.5),
+                            0 0 50px rgba(243, 156, 18, 0.5), 
+                            0 0 60px rgba(243, 156, 18, 0.5),
+                            0 0 70px rgba(243, 156, 18, 0.5);
+            }
+        }
+
+        .word-cloud {
+            margin-top: 20px;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(270deg, #F39C12, #8E44AD, #3498DB);
+            background-size: 600% 600%;
+            border-radius: 50%;
+            border: 10px solid #F39C12;
+            overflow: hidden;
+            position: relative;
+            animation: pulse-glow 2s infinite, backgroundAnimation 15s ease infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
             }
         }
     </style>
@@ -124,9 +179,9 @@
         document.getElementById('sentiment-form').addEventListener('submit', async function(event) {
             event.preventDefault();
             const text = document.getElementById('text-input').value;
-            
+
             try {
-                const response = await fetch('http://127.0.0.1:5000/analyze', {  // Make sure this URL matches your Flask app
+                const response = await fetch('http://127.0.0.1:5000/analyze', {  
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -134,23 +189,38 @@
                     body: JSON.stringify({ text })
                 });
                 const data = await response.json();
-                
+
                 const sentimentResult = document.getElementById('sentiment-result');
                 const sentiment = data.sentiment;
                 sentimentResult.textContent = `The sentiment of the input text is ${sentiment}.`;
                 sentimentResult.className = `result result-${sentiment.toLowerCase()}`;
+
                 
-                // Update Word Cloud (Optional, you might want to customize this further)
                 const wordList = [
-                    ['happy', 50],
-                    ['joy', 40],
-                    ['love', 60],
-                    ['sad', 30],
-                    ['angry', 25],
-                    ['hate', 20]
-                ];
-                
+    ['happy', 60],
+    ['joy', 50],
+    ['love', 70],
+    ['excited', 45],
+    ['cheerful', 40],
+    ['angry', 30],
+    ['sad', 35],
+    ['frustrated', 25],
+    ['hate', 20],
+    ['disgusted', 15],
+    ['anxious', 20],
+    ['nervous', 18],
+    ['hopeful', 50],
+    ['relieved', 40],
+    ['confident', 45],
+    ['bored', 25],
+    ['stressed', 30],
+    ['overwhelmed', 28],
+    ['calm', 38]
+];
+
+
                 WordCloud(document.getElementById('word-cloud'), { list: wordList });
+
             } catch (error) {
                 console.error('Error:', error);
             }
